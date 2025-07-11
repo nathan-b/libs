@@ -14,7 +14,8 @@ enum evt_class {
 	EVT_CLASS_NET,   // Network state changes
 	EVT_CLASS_FILE,  // File system state changes
 	EVT_CLASS_PROC,  // Process and thread state changes
-	EVT_CLASS_OTHER  // Other types of events
+	EVT_CLASS_OTHER, // Other types of events
+	EVT_CLASS_MAX
 };
 
 struct capture_evt {
@@ -55,6 +56,11 @@ public:
 	 */
 	uint32_t num_cpus() const { return m_events_by_cpu.size(); }
 
+	/**
+	 * @brief Get the number of seconds covered by this capture.
+	 */
+	uint32_t num_seconds() const { return m_num_seconds; }
+
 private:
 	/**
 	 * @brief Calculate the number of seconds into the capture for a given timestamp.
@@ -68,4 +74,5 @@ private:
 	bool m_events_loaded = false;
 	uint64_t m_start_ts_ns = 0;  // Start timestamp of the capture in nanoseconds
 	std::unordered_map<uint32_t, cpu_event_list> m_events_by_cpu;
+	uint32_t m_num_seconds = 0;  // Number of seconds covered by the capture
 };

@@ -18,8 +18,10 @@ void processed_events::add_event(const capture_evt& evt) {
 	if(!m_events_loaded) {
 		m_events_loaded = true;
 	}
+
+	// Set the start timestamp to the first event's timestamp
 	if(m_start_ts_ns == 0) {
-		m_start_ts_ns = evt.ts_ns;  // Set the start timestamp to the first event's timestamp
+		m_start_ts_ns = evt.ts_ns;
 	}
 
 	auto& cpu_list = m_events_by_cpu[evt.cpu];
@@ -28,6 +30,11 @@ void processed_events::add_event(const capture_evt& evt) {
 		cpu_list.resize(capture_second + 1);
 	}
 	cpu_list[capture_second].push_back(evt);
+
+	// Update the number of seconds if this is the highest seen
+	if(capture_second > m_num_seconds) {
+		m_num_seconds = capture_second;
+	}
 }
 
 uint64_t processed_events::seconds_into_capture(uint64_t ts_ns) const {

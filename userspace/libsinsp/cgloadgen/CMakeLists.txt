@@ -13,6 +13,6 @@
 # the License.
 #
 
-add_executable(cgloadgen main.cpp capture_reader.cpp)
+add_executable(cgloadgen main.cpp capture_reader.cpp event_generator.cpp)
 
 target_link_libraries(cgloadgen sinsp)
