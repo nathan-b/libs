@@ -203,6 +203,11 @@ if(BUILD_LIBSINSP_EXAMPLES)
 	add_subdirectory(sinsp_debug)
 endif()
 
+option(BUILD_LIBSINSP_LOADGEN "Build capture-guided load generator" ON)
+if(BUILD_LIBSINSP_LOADGEN)
+	add_subdirectory(cgloadgen)
+endif()
+
 if(NOT DEFINED SINSP_AGENT_CGROUP_MEM_PATH_ENV_VAR)
 	set(SINSP_AGENT_CGROUP_MEM_PATH_ENV_VAR "AGENT_CGROUP_MEM_PATH")
 endif()
